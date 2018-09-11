@@ -1,0 +1,90 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: #EBEBEB;
+  font-family: 'Montserrat';
+  font-weight: 4000;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+/* Flex Helpers */
+
+.f-parent
+{
+  display: flex
+}
+.f-row {
+  flex-direction: row;
+}
+
+.f-column {
+  flex-direction: column;
+}
+
+.f-wrap {
+  flex-wrap: wrap;
+}
+.f-justify-center {
+  justify-content: center;
+}
+
+.f-justify-left {
+  justify-content: flex-start;
+}
+
+.f-justify-right {
+  justify-content: flex-end;
+}
+
+.f-space-between {
+  justify-content: space-between
+}
+
+.f-space-around {
+  justify-content: space-around
+}
+
+.f-align-top {
+  align-items: flex-start;
+}
+
+.f-align-center {
+  align-items: center;
+}
+
+.f-item-left {
+  align-self: flex-start;
+}
+
+.f-item-right {
+  align-self: flex-end;
+}
+
+.f-item-center {
+  align-self: center;
+}
+
+.f-item-stretch {
+  align-self: stretch;
+}
+
+.flex-1 {
+  flex: 1;
+}
