@@ -1,6 +1,7 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -44,12 +45,17 @@ function createWindow() {
 
 }
 
+
 try {
 
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', () => {
+    createWindow();
+    // const mymenu = Menu.buildFromTemplate(template);
+    // Menu.setApplicationMenu(mymenu);
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
@@ -72,3 +78,5 @@ try {
   // Catch Error
   // throw e;
 }
+
+
