@@ -16,7 +16,6 @@ const routes: Routes = [
         component: ProductComponent
     },
     { path: 'login', component: LoginComponent },
-    // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
 

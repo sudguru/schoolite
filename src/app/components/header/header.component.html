@@ -1,0 +1,34 @@
+<mat-toolbar color="accent" class='f-space-between f-align-center f-row' style="height: 50px;">
+  <span class="text-left flex-1">
+    <button mat-icon-button (click)="_location.back()">
+      <mat-icon aria-label="Example icon-button with a heart icon">arrow_back</mat-icon>
+    </button>
+    <span style="font-weight: 400; font-size: 16px; font-family: 'Montserrat';color: #333;">
+    {{headerData}}
+    </span>
+
+  </span> 
+  <span class='f-parent f-row  flex-1 f-justify-center title-text'>
+    <img src="../assets/images/logo-dark.png" width="30px" height="30px" style="margin-right: 10px;" />
+    <span style="font-weight: 400; font-size: 18px; font-family: 'Montserrat';">Sales Analysis</span>
+  </span>
+  <span class="flex-1 text-right">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voicemail</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+        </mat-menu>
+  </span>
+</mat-toolbar>

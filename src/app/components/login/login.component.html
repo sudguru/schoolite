@@ -1,15 +1,36 @@
-<form #loginForm="ngForm" novalidate>
+<mat-toolbar color="accent" class='f-space-between f-align-center f-row' style="height: 50px;">
+  <span class="text-left flex-1">
+    <span style="font-weight: 400; font-size: 16px; font-family: 'Montserrat';color: #333;">
+      Login
+    </span>
+
+  </span> 
+  <span class='f-parent f-row  flex-1 f-justify-center title-text'>
+    <img src="../assets/images/logo-dark.png" width="30px" height="30px" style="margin-right: 10px;" />
+    <span style="font-weight: 400; font-size: 18px; font-family: 'Montserrat';">Sales Analysis</span>
+  </span>
+  <span class="flex-1 text-right">
+    <span style="font-weight: 400; font-size: 16px; font-family: 'Montserrat';color: #333;">
+      Sign Up
+    </span>
+  </span>
+</mat-toolbar>
+<div class="loginform">
+  <form #loginForm="ngForm" novalidate>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email:" [(ngModel)]="loginUser.username" name="username" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input type="password" matInput placeholder="Password:" [(ngModel)]="loginUser.password" name="password" required>
+      </mat-form-field>
 
 
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Email:" [(ngModel)]="loginUser.username" name="username" required>
-    </mat-form-field>
+      <button mat-raised-button (click)="login(loginUser)" [disabled]="loginForm.invalid" color="primary">Login</button>
 
-    <mat-form-field class="full-width">
-      <input type="password" matInput placeholder="Password:" [(ngModel)]="loginUser.password" name="password" required>
-    </mat-form-field>
+  </form>
 
+</div>
 
-    <button mat-raised-button (click)="login(loginUser)" [disabled]="loginForm.invalid" color="primary">Login</button>
-
-</form>
+<a routerLink="/">HOme</a>

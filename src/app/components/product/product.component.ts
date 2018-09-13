@@ -1,3 +1,4 @@
+import { HeaderComponent } from './../header/header.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
