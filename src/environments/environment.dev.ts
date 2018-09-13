@@ -5,5 +5,6 @@
 
 export const AppConfig = {
   production: false,
-  environment: 'DEV'
+  environment: 'DEV',
+  apiUrl: 'https://mcan.org.np/o2/src/public'
 };
