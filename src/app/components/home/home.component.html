@@ -22,6 +22,10 @@
         </div>
         <div class="flex-1">
           <div class="f-item-center ">PHoto</div>
+          <div *ngIf="photos">
+              <div *ngFor="let photo of photos">{{photo}}</div>
+          </div>
+          
         </div>
 
       </div>
