@@ -1,4 +1,4 @@
-import { LoginResponse } from './../../models/login-response.model';
+import { ServerResponse } from './../../models/login-response.model';
 import { AuthenticationService } from './../../services/auth.service';
 import { Login } from './../../models/login.model';
 import { Component, OnInit } from '@angular/core';
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   login (loginUser: Login) {
     console.log(loginUser);
-    this.authService.login(loginUser.username, loginUser.password).subscribe((result: LoginResponse) => {
+    this.authService.login(loginUser.username, loginUser.password).subscribe((result: ServerResponse) => {
       if (!result.error) {
         this.snackbar.open(`Welcome ${loginUser.username}.`, '', { duration: 3000 });
         this.router.navigate([this.returnUrl]);

@@ -1,5 +1,5 @@
-export interface LoginResponse {
+export interface ServerResponse {
     status: number;
     error: string;
-    data: string;
+    data: any;
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ServerResponse } from './../../models/login-response.model';
+import { SchoolService } from './../../services/school.service';
+import { School } from './../../models/school.model';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +10,26 @@ import { User } from '../../models/user.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  schools: School[] = [];
+  headerData: any = {
+    title: 'Schools',
+    backBtn: false
+  };
+  windowHeight: any;
+
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.windowHeight = window.innerWidth;
+  // }
+
+  constructor(private schoolService: SchoolService) { }
 
   ngOnInit() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
-  });
+    this.schoolService.getAll().pipe(first()).subscribe((res: ServerResponse) => {
+      this.schools = res.data;
+    });
+    this.windowHeight = window.innerWidth - 150;
   }
 
 }

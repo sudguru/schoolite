@@ -1,12 +1,16 @@
+<app-header [headerData]="headerData"></app-header>
 <div class="container">
-  <h1>Home</h1>
-  <p>You're logged in with Angular 6 & Basic HTTP Authentication!!</p>
-  <div>
-      Users from secure api end point:
+
+  <mat-card [style.width.px]="'400'">
+    <mat-card-header>
+        <mat-card-title>CARD TITLE</mat-card-title>
+    </mat-card-header>
+    <mat-card-content [style.overflow]="'auto'" [style.height.px]="windowHeight">
       <ul>
-          <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
+          <li *ngFor="let school of schools">{{school.name}} {{school.estd}}</li>
       </ul>
-  </div>
-  <p><a [routerLink]="['/login']">Logout</a></p>
-<p><a routerLink="/products">To product component</a></p>
+    </mat-card-content>
+  </mat-card>
+  <!-- <p><a [routerLink]="['/login']">Logout</a></p>
+<p><a routerLink="/products">To product component</a></p> -->
 </div>
