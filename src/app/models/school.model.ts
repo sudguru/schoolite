@@ -17,4 +17,5 @@ export interface School {
   home_no: string;
   cdo: string;
   sk_id?: number;
+  photo?: string;
 }

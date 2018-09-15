@@ -5,6 +5,7 @@ import { School } from './../../models/school.model';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { first, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject, pipe } from 'rxjs';
+const stringSimilarity = require('string-similarity');
 
 
 @Component({
@@ -83,6 +84,8 @@ export class HomeComponent implements OnInit {
 
   showSchool(school: School) {
     this.selectedSchool = school;
+    const result = stringSimilarity.findBestMatch(school.name, this.photos);
+    this.selectedSchool.photo = './assets/ID/' + result.bestMatch.target;
   }
 
 }
