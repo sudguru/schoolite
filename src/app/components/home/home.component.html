@@ -1,16 +1,29 @@
 <app-header [headerData]="headerData"></app-header>
-<div class="container">
+<div class="container f-parent f-space-between f-align-top f-row">
 
-  <mat-card [style.width.px]="'400'">
-    <mat-card-header>
-        <mat-card-title>CARD TITLE</mat-card-title>
-    </mat-card-header>
-    <mat-card-content [style.overflow]="'auto'" [style.height.px]="windowHeight">
-      <ul>
-          <li *ngFor="let school of schools">{{school.name}} {{school.estd}}</li>
-      </ul>
-    </mat-card-content>
-  </mat-card>
+  <div class="flex-1 school-container">
+
+    <input matInput placeholder="Search" [ngModel]="search" class="my-text-box" (ngModelChange)='searchRecords($event)'>
+    <div [style.overflow]="'auto'" [style.height.px]="windowHeight">
+        <mat-nav-list>
+          
+              <a matLine mat-list-item class="alist" *ngFor="let school of schools; let i = index" href="javascript:void(0)" (click)="showSchool(school)" (focus)="showSchool(school)" [ngClass]="{'fistListItem':i == 0}">{{ school.name }}</a>
+
+          </mat-nav-list>
+    </div>
+    
+  </div>
   <!-- <p><a [routerLink]="['/login']">Logout</a></p>
 <p><a routerLink="/products">To product component</a></p> -->
+    <div class="flex-4" style="padding: 0 30px;">
+      <div *ngIf="selectedSchool" class="f-parent f-space-between f-align-top f-row">
+        <div class="flex-2">
+            <h2>{{selectedSchool.name}}</h2>
+        </div>
+        <div class="flex-1">
+          <div class="f-item-center ">PHoto</div>
+        </div>
+
+      </div>
+    </div>
 </div>
