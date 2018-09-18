@@ -7,6 +7,14 @@ import { Subject, pipe } from 'rxjs';
 const stringSimilarity = require('string-similarity');
 import { MatDialog } from '@angular/material';
 
+const dbPath = '/Users/mac/.schoolite/schools.sqlite';
+const knex = require('knex')({
+  client: 'sqlite3',
+  connection: {
+      filename: dbPath
+  }
+});
+
 
 @Component({
   selector: 'app-home',
@@ -60,6 +68,16 @@ export class HomeComponent implements OnInit {
       this.dbSchools = result;
       this.schools = this.dbSchools;
     });
+
+    this.electronService.remote.ipcMain.on('getData', function(e) {
+      const result = knex.from('sk')
+      .innerJoin('schools', 'sk.id', 'schools.sk_id')
+      .innerJoin('municipality', 'schools.n_id', 'municipality.id');
+      result.then(rows => {
+          e.sender.send('resultSent', rows);
+      });
+    });
+
    }
 
   ngOnInit() {
