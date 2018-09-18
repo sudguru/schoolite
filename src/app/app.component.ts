@@ -71,24 +71,11 @@ export class AppComponent {
         ]
       },
       {
-          label: 'Setup',
-          submenu: [
-              {
-                  label: 'Products',
-                  click: this.router.navigate(['/products'])
-              },
-              {
-                label: 'Home',
-                click: this.router.navigate(['/'])
-            }
-          ]
-      },
-      {
         role: 'help',
         submenu: [
           {
             label: 'Learn More',
-            click () { require('electron').shell.openExternal('https://electronjs.org'); }
+            click () { require('electron').shell.openExternal('https://mcan.org.np/helps/schoolite'); }
           }
         ]
       }

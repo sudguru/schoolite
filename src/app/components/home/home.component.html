@@ -1,12 +1,8 @@
 <app-header [headerData]="headerData"></app-header>
-<button mat-fab color="warn" class="fab" *ngIf="selectedSchool" (click)="addEdit()">
-  <mat-icon>edit</mat-icon>
+<button mat-fab color="primary" class="fab" *ngIf="selectedSchool" (click)="addEdit(newSchool)">
+  <mat-icon>add</mat-icon>
 </button>
-
-<button mat-fab color="warn" class="fab" *ngIf="selectedSchool" (click)="addEdit()">
-    <mat-icon>edit</mat-icon>
-</button>
-
+ 
 <div class="container f-parent f-space-between f-align-top f-row">
 
   <div class="flex-1 school-container">
@@ -26,8 +22,11 @@
   <div class="flex-3" style="padding: 0 30px;">
     <div *ngIf="selectedSchool" class="f-parent f-space-between f-align-top f-row">
       <div class="flex-3">
-
-          <h2>{{selectedSchool.name}}</h2>
+          <div class="f-parent f-space-between f-align-center f-row">
+            <h3 class="flex-8">{{selectedSchool.name}}</h3>
+            <button class="flex-1 mute" mat-icon-button><mat-icon>edit</mat-icon></button>
+            <button class="flex-1 mute" mat-icon-button><mat-icon>print</mat-icon></button>
+          </div>
           <table class="table" style="font-size: 14px">
             <tr>
               <td style="width: 30%">Name</td>
@@ -100,7 +99,7 @@
           </table>
       </div>
       <div class="flex-1 f-parent f-justify-right">
-        <div *ngIf="photos" style="padding-top: 70px; width: 80%">
+        <div *ngIf="photos" style="padding-top: 70px; width: 90%">
           <img [src]="selectedSchool.photo" style="width: 100%;" />
         </div>
       </div>

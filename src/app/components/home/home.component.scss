@@ -44,14 +44,10 @@
 
   .fab {
       position: absolute;
-      bottom: 50px;
-      right: 50px;
+      bottom: 20px;
+      right: 20px;
   }
-  .fab2 {
-    position: absolute;
-    bottom: 50px;
-    right: 150px;
-  }
+
 
   .editInput {
     width: 100%;
@@ -66,4 +62,14 @@
   .alist {
       font-size: 13px;
       height: 40px !important;
+  }
+
+  h3 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+
+  .mute {
+      opacity: 0.4;
   }

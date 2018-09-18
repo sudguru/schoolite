@@ -18,18 +18,32 @@
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item>
+              <mat-icon>backup</mat-icon>
+              <span>Push Data</span>
+            </button>
           <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
+            <mat-icon>cloud_download</mat-icon>
+            <span>Pull Data</span>
           </button>
-          <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>
+            <mat-icon>list</mat-icon>
+            <span>Extra Fields</span>
+          </button>
+          <button mat-menu-item (click)="cluster()">
+            <mat-icon>group_work</mat-icon>
+            <span>Clusters</span>
           </button>
           <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
+            <mat-icon>map</mat-icon>
+            <span>Municipalities</span>
           </button>
+          <button mat-menu-item>
+            <mat-icon>streetview</mat-icon>
+            <span>Resource Centers</span>
+          </button>
+          <mat-divider></mat-divider>
           <button mat-menu-item (click)="logout()">
               <mat-icon>exit_to_app</mat-icon>
               <span>Log Out</span>

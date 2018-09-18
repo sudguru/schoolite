@@ -9,6 +9,7 @@ export interface School {
   office_no: string;
   mobile_no: string;
   classes_upto: string;
+  c_id: number;
   cluster: string;
   email: string;
   contact_person: string;

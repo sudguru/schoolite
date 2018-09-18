@@ -28,6 +28,7 @@ import { ProductComponent } from './components/product/product.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SqliteComponent } from './components/sqlite/sqlite.component';
+import { ClusterComponent } from './components/cluster/cluster.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -42,7 +43,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProductComponent,
     LoginComponent,
     HeaderComponent,
-    SqliteComponent
+    SqliteComponent,
+    ClusterComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ClusterComponent
+  ]
 })
 export class AppModule { }

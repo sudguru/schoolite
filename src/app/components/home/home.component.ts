@@ -1,6 +1,5 @@
 import { ElectronService } from './../../providers/electron.service';
 import { ServerResponse } from './../../models/login-response.model';
-import { SchoolService } from './../../services/school.service';
 import { School } from './../../models/school.model';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { first, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -19,6 +18,7 @@ export class HomeComponent implements OnInit {
   schools: School[] = [];
   selectedSchool: School;
   dbSchools: School[] = [];
+  newSchool: School;
   headerData: any = {
     title: 'Schools',
     backBtn: false,
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   search: string;
   searchChanged: Subject<string> = new Subject<string>();
 
-  constructor(private schoolService: SchoolService, private electronService: ElectronService) {
+  constructor(private electronService: ElectronService) {
     this.searchChanged.pipe(
       debounceTime(500) // wait 300ms after the last event before emitting last event
     ).pipe(
@@ -65,7 +65,56 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.electronService.ipcRenderer.send('getData');
     this.windowHeight = window.innerHeight - 100;
+    this.setNewSchool();
   }
+
+  setNewSchool() {
+    this.newSchool = {
+      id: 0,
+      name: '',
+      n_id: 0,
+      nagarpalika: '',
+      ward_no: '',
+      principal: '',
+      address: '',
+      office_no: '',
+      mobile_no: '',
+      classes_upto: '',
+      c_id: 0,
+      cluster: '',
+      email: '',
+      contact_person: '',
+      contact_no: '',
+      estd: '',
+      post_box: '',
+      home_no: '',
+      cdo: '',
+      sk_id: 0,
+      sk: '',
+      photo: ''
+    };
+  }
+
+
+  // J Jorpati
+  // P Pabson
+  // MID Mid Pabson
+  // NEEB
+  // W West Region
+  // N Northern Pabson
+  // SR South Region
+  // DEAN DEAN
+  // TOPS TOPS
+  // OPS OPS
+  // PRO Progressive Group
+  // FISM
+  // NOPSO
+  // MF MAAF
+  // BEF BEF
+  // F FECA
+  // Bishesh
+
+
 
 
   filteredSearch = function (search) {
@@ -94,31 +143,31 @@ export class HomeComponent implements OnInit {
   }
 
 
-  // addEdit(school: School) {
-  //   const dialogRef = this.dialog.open(ProductEditComponent, {
-  //     width: '650px',
-  //     disableClose: true,
-  //     autoFocus: true,
-  //     data: product
-  //   });
-  //   const that = this;
-  //   dialogRef.afterClosed().subscribe(readyProduct => {
-  //     if (readyProduct) {
-  //       this.productService.addEditProduct(readyProduct, that.parties).then(res => {
-  //         console.log(res);
-  //         if (res) {
-  //           this.snackbar.open(`${readyProduct.name} successfully added / modified.`, '', { duration: 3000 });
-  //           this.getProducts();
-  //         } else {
-  //           this.snackbar.open(`${readyProduct.name} could not be added / modified.`, '', { duration: 3000 });
-  //         }
-  //       });
-  //     } else {
-  //       this.getProducts();
-  //     }
-  //     this.setNewProduct();
-  //   });
-  // }
+  addEdit(school: School) {
+    // const dialogRef = this.dialog.open(ProductEditComponent, {
+    //   width: '650px',
+    //   disableClose: true,
+    //   autoFocus: true,
+    //   data: product
+    // });
+    // const that = this;
+    // dialogRef.afterClosed().subscribe(readyProduct => {
+    //   if (readyProduct) {
+    //     this.productService.addEditProduct(readyProduct, that.parties).then(res => {
+    //       console.log(res);
+    //       if (res) {
+    //         this.snackbar.open(`${readyProduct.name} successfully added / modified.`, '', { duration: 3000 });
+    //         this.getProducts();
+    //       } else {
+    //         this.snackbar.open(`${readyProduct.name} could not be added / modified.`, '', { duration: 3000 });
+    //       }
+    //     });
+    //   } else {
+    //     this.getProducts();
+    //   }
+    //   this.setNewProduct();
+    // });
+  }
 
 
 }
