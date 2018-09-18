@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    console.log('ru', this.returnUrl);
+    // console.log('ru', this.returnUrl);
   }
 
   login (loginUser: Login) {
-    console.log(loginUser);
+    // console.log(loginUser);
     this.authService.login(loginUser.username, loginUser.password).subscribe((result: ServerResponse) => {
       if (!result.error) {
         this.snackbar.open(`Welcome ${loginUser.username}.`, '', { duration: 3000 });

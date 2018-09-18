@@ -1,7 +1,25 @@
-import { app, BrowserWindow, screen, Menu } from 'electron';
+import { app, BrowserWindow, screen, Menu, ipcMain } from 'electron';
 import * as path from 'path';
+const os = require('os');
 import * as url from 'url';
 
+const log = require('electron-log');
+log.transports.file.level = 'info';
+
+
+let dbPath;
+if (process.platform !== 'darwin') {
+  dbPath = 'D:\\schoolite_data\\schools.sqlite';
+} else {
+  dbPath = '/Users/' + os.userInfo().username + '/.schoolite/schools.sqlite';
+}
+
+const knex = require('knex')({
+  client: 'sqlite3',
+  connection: {
+      filename: dbPath
+  }
+});
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -14,10 +32,11 @@ function createWindow() {
 
   // Create the browser window.
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height
+    // width: size.width,
+    // height: size.height,
+    width: 1000,
+    height: 650,
+    frame: false
   });
 
   if (serve) {
@@ -46,6 +65,7 @@ function createWindow() {
 }
 
 
+
 try {
 
   // This method will be called when Electron has finished
@@ -55,6 +75,7 @@ try {
     createWindow();
     // const mymenu = Menu.buildFromTemplate(template);
     // Menu.setApplicationMenu(mymenu);
+    sqlTasks();
   });
 
   // Quit when all windows are closed.
@@ -80,3 +101,15 @@ try {
 }
 
 
+///////////////////
+
+function sqlTasks() {
+  ipcMain.on('getData', function () {
+      const result = knex.from('sk')
+      .innerJoin('schools', 'sk.id', 'schools.sk_id')
+      .innerJoin('municipality', 'schools.n_id', 'municipality.id');
+      result.then(rows => {
+          win.webContents.send('resultSent', rows);
+      });
+  });
+}

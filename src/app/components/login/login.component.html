@@ -19,7 +19,7 @@
   <form #loginForm="ngForm" novalidate>
 
       <mat-form-field class="full-width">
-        <input matInput placeholder="Email:" [(ngModel)]="loginUser.username" name="username" required>
+        <input matInput placeholder="Email:" [(ngModel)]="loginUser.username" name="username" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
       </mat-form-field>
 
       <mat-form-field class="full-width">

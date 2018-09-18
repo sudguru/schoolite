@@ -1,3 +1,6 @@
+
+@import '../../../bootstrap.css';
+
 .school-container {
     border-right: 1px solid #ddd;
     padding: 0;
@@ -27,3 +30,40 @@
       background-color: #dbdbdb;
   }
 
+  small {
+      color: #999;
+  }
+
+  .result {
+      margin: 5px 15px 0 22px;
+      font-size: 13px;
+      font-weight: normal;
+      font-family: Montserrat;
+      color: #666;
+  }
+
+  .fab {
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
+  }
+  .fab2 {
+    position: absolute;
+    bottom: 50px;
+    right: 150px;
+  }
+
+  .editInput {
+    width: 100%;
+    border: none;
+    background-color: #e1e1e1;
+    padding: 7px;
+    font-size: 16px;
+    margin: 0;
+    outline: none;
+  }
+
+  .alist {
+      font-size: 13px;
+      height: 40px !important;
+  }

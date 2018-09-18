@@ -1,3 +1,4 @@
+import { SqliteComponent } from './components/sqlite/sqlite.component';
 import { ProductComponent } from './components/product/product.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,7 @@ const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
     {
         path: 'products',

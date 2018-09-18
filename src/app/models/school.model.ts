@@ -1,7 +1,8 @@
 export interface School {
   id?: number;
   name: string;
-  n_id?: number;
+  n_id: number;
+  nagarpalika: string;
   ward_no: string;
   principal: string;
   address: string;
@@ -16,6 +17,7 @@ export interface School {
   post_box: string;
   home_no: string;
   cdo: string;
-  sk_id?: number;
+  sk_id: number;
+  sk?: string;
   photo?: string;
 }

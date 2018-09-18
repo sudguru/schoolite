@@ -27,6 +27,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductComponent } from './components/product/product.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
+import { SqliteComponent } from './components/sqlite/sqlite.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,7 +41,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebviewDirective,
     ProductComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    SqliteComponent
   ],
   imports: [
     BrowserModule,
