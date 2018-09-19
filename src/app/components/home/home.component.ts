@@ -64,7 +64,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.electronService.ipcRenderer.send('getData');
-    this.windowHeight = window.innerHeight - 100;
+    this.windowHeight = window.innerHeight - 200;
+    // this.windowHeight = this.electronService.remote.getCurrentWindow().getBounds().height;
+    console.log(this.windowHeight);
     this.setNewSchool();
   }
 
