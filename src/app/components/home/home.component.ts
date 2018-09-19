@@ -26,8 +26,7 @@ export class HomeComponent implements OnInit {
   };
   windowHeight: any;
   photos = [];
-
-
+  imageDir = '/Users/mac/.schoolite/ID';
   search: string;
   searchChanged: Subject<string> = new Subject<string>();
 
@@ -48,8 +47,9 @@ export class HomeComponent implements OnInit {
     });
 
     // Get Photos
+    // /Users/mac/new2018/schoolite/src/assets/ID
     const that = this;
-    this.electronService.fs.readdir('/Users/mac/new2018/schoolite/src/assets/ID', function(err, dir) {
+    this.electronService.fs.readdir(this.imageDir, function(err, dir) {
       const photoFiles = [];
       for (const filePath of dir) {
         photoFiles.push(filePath);
@@ -117,9 +117,14 @@ export class HomeComponent implements OnInit {
   showSchool(school: School) {
     this.selectedSchool = school;
     const result = stringSimilarity.findBestMatch(school.name, this.photos);
-    this.selectedSchool.photo = './assets/ID/' + result.bestMatch.target;
-  }
+    const photopath = this.imageDir + '/' + result.bestMatch.target;
+    const tempimg = this.electronService.nativeImage.createFromPath(photopath);
+    const imageSize = tempimg.getSize();
+    const imageWidth = 150;
+    const imageHeight = (imageSize.height / imageSize.width) * imageWidth;
+    this.selectedSchool.photo = tempimg.resize({width: imageWidth, height: imageHeight}).toDataURL();
 
+  }
 
   addEdit(school: School) {
     // const dialogRef = this.dialog.open(ProductEditComponent, {

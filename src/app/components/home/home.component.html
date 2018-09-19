@@ -96,15 +96,11 @@
               <td>Home No.</td>
               <td>{{ selectedSchool.home_no }}</td>
             </tr>
-            <tr>
-              <td>Photo Path</td>
-              <td>{{ selectedSchool.photo }}</td>
-            </tr>
           </table>
       </div>
       <div class="flex-1 f-parent f-justify-right">
-        <div *ngIf="photos" style="padding-top: 70px; width: 90%">
-          <img [src]="selectedSchool.photo" style="width: 100%;" />
+        <div *ngIf="photos" style="padding-top: 70px;">
+          <img [src]="selectedSchool.photo" />
         </div>
       </div>
 
