@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   search: string;
   searchChanged: Subject<string> = new Subject<string>();
 
+
   constructor(private electronService: ElectronService) {
     this.searchChanged.pipe(
       debounceTime(500) // wait 300ms after the last event before emitting last event
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit {
         photoFiles.push(filePath);
       }
       that.photos = photoFiles;
+      console.log(that.photos);
     });
 
     this.electronService.ipcRenderer.on('resultSent', (evt, result) => {
@@ -64,7 +66,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.electronService.ipcRenderer.send('getData');
-    this.windowHeight = window.innerHeight - 200;
+    this.windowHeight = window.innerHeight - 100;
     // this.windowHeight = this.electronService.remote.getCurrentWindow().getBounds().height;
     console.log(this.windowHeight);
     this.setNewSchool();
@@ -98,26 +100,6 @@ export class HomeComponent implements OnInit {
   }
 
 
-  // J Jorpati
-  // P Pabson
-  // MID Mid Pabson
-  // NEEB
-  // W West Region
-  // N Northern Pabson
-  // SR South Region
-  // DEAN DEAN
-  // TOPS TOPS
-  // OPS OPS
-  // PRO Progressive Group
-  // FISM
-  // NOPSO
-  // MF MAAF
-  // BEF BEF
-  // F FECA
-  // Bishesh
-
-
-
 
   filteredSearch = function (search) {
     const lowSearch = search.toLowerCase();
@@ -130,13 +112,7 @@ export class HomeComponent implements OnInit {
     this.searchChanged.next(text);
   }
 
-  // onKeydown(event) {
-  //   if (event.key === 'ArrowDown') {
-  //     const fistListItem = document.querySelector('.fistListItem');
-  //     console.log(fistListItem);
-  //     fistListItem.focus({preventScroll: true});
-  //   }
-  // }
+
 
   showSchool(school: School) {
     this.selectedSchool = school;
