@@ -12,6 +12,8 @@ if (process.platform !== 'darwin') {
   dbPath = '/Users/' + os.userInfo().username + '/.schoolite/schools.sqlite';
 }
 
+
+
 const knex = require('knex')({
   client: 'sqlite3',
   connection: {
