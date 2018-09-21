@@ -68,4 +68,20 @@ exports.sqlTasks = () => {
       });
     });
 
+    ipcMain.on('syncClusterDataFromRemote', function(event, remoteClusterData) {
+      // Update & Add
+      // if there are new records viz not in local then add
+      // else update
+      log.info('sync started');
+
+      const result = knex.select().table('clusters');
+      result.then(rows => {
+        const localRows = rows;
+        log.info('localrows', rows);
+        remoteClusterData.forEach(record => {
+          log.info('remoterowid', record.id);
+        });
+      });
+    });
+
 };

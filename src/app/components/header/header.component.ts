@@ -6,12 +6,21 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+
+export interface SyncResponse {
+  status: number;
+  error: string;
+  data: any;
+}
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
+
+
 export class HeaderComponent implements OnInit {
 @Input() headerData: any;
   clusters: Cluster[];
@@ -28,8 +37,12 @@ export class HeaderComponent implements OnInit {
         const json_clusters = JSON.stringify(this.clusters);
         // console.log('cluster string', this.clusters);
         console.log(this.clusters);
-        this.http.post('https://mcan.org.np/schoolite/src/public/syncClusters', { clusters: this.clusters }).subscribe(res => {
+        this.http.post('https://mcan.org.np/schoolite/src/public/syncClusters', { clusters: this.clusters })
+        .subscribe((res: SyncResponse) => {
           console.log(res);
+          if (!res.error) {
+            this.electronService.ipcRenderer.send('syncClusterDataFromRemote', res.data);
+          }
         });
       });
 

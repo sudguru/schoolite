@@ -62,5 +62,19 @@ exports.sqlTasks = function () {
             event.sender.send('clusterDeleted', outcome);
         });
     });
+    electron_1.ipcMain.on('syncClusterDataFromRemote', function (event, remoteClusterData) {
+        // Update & Add
+        // if there are new records viz not in local then add
+        // else update
+        log.info('sync started');
+        var result = knex.select().table('clusters');
+        result.then(function (rows) {
+            var localRows = rows;
+            log.info('localrows', rows);
+            remoteClusterData.forEach(function (record) {
+                log.info('remoterowid', record.id);
+            });
+        });
+    });
 };
 //# sourceMappingURL=mainsqlite.js.map
