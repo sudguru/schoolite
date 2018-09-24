@@ -4,54 +4,50 @@
       <mat-icon aria-label="Example icon-button with a heart icon">arrow_back</mat-icon>
     </button>
     <span style="font-weight: 400; font-size: 16px; font-family: 'Montserrat';color: #333;">
-    {{headerData.title}}
+      {{headerData.title}}
     </span>
 
-  </span> 
+  </span>
   <span class='f-parent f-row  flex-1 f-justify-center title-text'>
     <mat-icon style="margin: 3px 10px 0 0">account_balance</mat-icon>
     <span style="font-weight: 400; font-size: 18px; font-family: 'Montserrat';">SchoolDb</span>
   </span>
   <span class="flex-1 text-right">
-      
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" [overlapTrigger]="false">
-            <button mat-menu-item (click)="syncClusters()">
-                <mat-icon>sync</mat-icon>
-                <span>Sync Clusters</span>
-              </button>
-            <button mat-menu-item>
-              <mat-icon>backup</mat-icon>
-              <span>Push Data</span>
-            </button>
-          <button mat-menu-item>
-            <mat-icon>cloud_download</mat-icon>
-            <span>Pull Data</span>
-          </button>
-          <mat-divider></mat-divider>
-          <button mat-menu-item>
-            <mat-icon>list</mat-icon>
-            <span>Extra Fields</span>
-          </button>
-          <button mat-menu-item (click)="cluster()">
-            <mat-icon>group_work</mat-icon>
-            <span>Clusters</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>map</mat-icon>
-            <span>Municipalities</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>streetview</mat-icon>
-            <span>Resource Centers</span>
-          </button>
-          <mat-divider></mat-divider>
-          <button mat-menu-item (click)="logout()">
-              <mat-icon>exit_to_app</mat-icon>
-              <span>Log Out</span>
-            </button>
-        </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item (click)="syncClusters()" [disabled]="!(online$ | async)">
+        <mat-icon>sync</mat-icon>
+        <span>Sync Database</span>
+      </button>
+      <button mat-menu-item (click)="syncPhotos()" [disabled]="!(online$ | async)">
+        <mat-icon>sync</mat-icon>
+        <span>Sync ID Photos</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>list</mat-icon>
+        <span>Extra Fields</span>
+      </button>
+      <button mat-menu-item (click)="cluster()">
+        <mat-icon>group_work</mat-icon>
+        <span>Clusters</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>map</mat-icon>
+        <span>Municipalities</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>streetview</mat-icon>
+        <span>Resource Centers</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Log Out</span>
+      </button>
+    </mat-menu>
   </span>
 </mat-toolbar>

@@ -1,3 +1,4 @@
+import { SyncPhotosComponent } from './../sync-photos/sync-photos.component';
 import { Cluster } from './../../models/cluster.model';
 import { ElectronService } from './../../providers/electron.service';
 import { ClusterComponent } from './../cluster/cluster.component';
@@ -6,6 +7,9 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+
+import { fromEvent, merge, of, Observable } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
 export interface SyncResponse {
   status: number;
@@ -22,8 +26,10 @@ export interface SyncResponse {
 
 
 export class HeaderComponent implements OnInit {
-@Input() headerData: any;
+
+  @Input() headerData: any;
   clusters: Cluster[];
+  online$: Observable<boolean>;
   constructor(
     public _location: Location,
     private router: Router,
@@ -46,9 +52,16 @@ export class HeaderComponent implements OnInit {
         });
       });
 
+      this.online$ = merge(
+        of(navigator.onLine),
+        fromEvent(window, 'online').pipe(mapTo(true)),
+        fromEvent(window, 'offline').pipe(mapTo(false))
+      );
+
     }
 
   ngOnInit() {
+
   }
 
   logout() {
@@ -57,7 +70,7 @@ export class HeaderComponent implements OnInit {
 
   cluster() {
     this.dialog.open(ClusterComponent, {
-      width: '650px',
+      width: '1000px',
       disableClose: false,
       autoFocus: true
     });
@@ -66,5 +79,14 @@ export class HeaderComponent implements OnInit {
   syncClusters() {
     this.electronService.ipcRenderer.send('getClusterData');
   }
+
+  syncPhotos() {
+    this.dialog.open(SyncPhotosComponent, {
+      width: '1000px',
+      disableClose: false,
+      autoFocus: true
+    });
+  }
+
 
 }

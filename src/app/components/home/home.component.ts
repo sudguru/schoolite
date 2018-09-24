@@ -1,12 +1,12 @@
+import { PreparePhotosComponent } from './../prepare-photos/prepare-photos.component';
 import { ElectronService } from './../../providers/electron.service';
-import { ServerResponse } from './../../models/login-response.model';
 import { School } from './../../models/school.model';
 import { Component, OnInit, HostListener } from '@angular/core';
-import { first, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject, pipe } from 'rxjs';
 const stringSimilarity = require('string-similarity');
 import { MatDialog } from '@angular/material';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -27,11 +27,16 @@ export class HomeComponent implements OnInit {
   windowHeight: any;
   photos = [];
   imageDir = '/Users/mac/.schoolite/ID';
+
   search: string;
   searchChanged: Subject<string> = new Subject<string>();
 
 
-  constructor(private electronService: ElectronService) {
+  constructor(
+    private electronService: ElectronService,
+    private router: Router,
+    public dialog: MatDialog,
+    ) {
     this.searchChanged.pipe(
       debounceTime(500) // wait 300ms after the last event before emitting last event
     ).pipe(
@@ -55,7 +60,7 @@ export class HomeComponent implements OnInit {
         photoFiles.push(filePath);
       }
       that.photos = photoFiles;
-      console.log(that.photos);
+      // console.log(that.photos);
     });
 
     this.electronService.ipcRenderer.on('resultSent', (evt, result) => {
@@ -118,12 +123,21 @@ export class HomeComponent implements OnInit {
     this.selectedSchool = school;
     const result = stringSimilarity.findBestMatch(school.name, this.photos);
     const photopath = this.imageDir + '/' + result.bestMatch.target;
+    console.log(photopath);
     const tempimg = this.electronService.nativeImage.createFromPath(photopath);
     const imageSize = tempimg.getSize();
     const imageWidth = 150;
     const imageHeight = (imageSize.height / imageSize.width) * imageWidth;
     this.selectedSchool.photo = tempimg.resize({width: imageWidth, height: imageHeight}).toDataURL();
 
+  }
+
+  goToPreparePhoto() {
+    this.dialog.open(PreparePhotosComponent, {
+      width: '1000px',
+      disableClose: false,
+      autoFocus: true
+    });
   }
 
   addEdit(school: School) {

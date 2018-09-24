@@ -2,7 +2,7 @@
 <button mat-fab color="primary" class="fab" *ngIf="selectedSchool" (click)="addEdit(newSchool)">
   <mat-icon>add</mat-icon>
 </button>
- 
+
 <div class="container f-parent f-space-between f-align-top f-row">
 
   <div class="flex-1 school-container">
@@ -11,8 +11,8 @@
     <div class="result" *ngIf="schools">{{ search ? 'Term: ' + search + ' - ': '' }} {{ schools.length }} Records</div>
     <div [style.overflow]="'auto'" [style.height.px]="windowHeight">
       <mat-nav-list>
-        <a mat-list-item class="alist" *ngFor="let school of schools; let i = index" href="javascript:void(0)"
-          (click)="showSchool(school)" (focus)="showSchool(school)" [ngClass]="{'firstListItem':i == 0}">{{ school.name
+        <a mat-list-item class="alist" *ngFor="let school of schools; let i = index" href="javascript:void(0)" (click)="showSchool(school)"
+          (focus)="showSchool(school)" [ngClass]="{'firstListItem':i == 0}">{{ school.name
           }}</a>
       </mat-nav-list>
     </div>
@@ -22,86 +22,93 @@
   <div class="flex-3" style="padding: 0 30px;">
     <div *ngIf="selectedSchool" class="f-parent f-space-between f-align-top f-row">
       <div class="flex-3">
-          <div class="f-parent f-space-between f-align-center f-row">
-            <h3 class="flex-8">{{selectedSchool.name}}</h3>
-            <button class="flex-1 mute" mat-icon-button><mat-icon>edit</mat-icon></button>
-            <button class="flex-1 mute" mat-icon-button><mat-icon>print</mat-icon></button>
-          </div>
-          <table class="table" style="font-size: 14px">
-            <tr>
-              <td style="width: 30%">Name</td>
-              <td style="width: 70%">
-                {{ selectedSchool.name}}
-              </td>
-            </tr>
-            <tr>
-              <td>ESTD</td>
-              <td>
-                {{ selectedSchool.estd}}
-              </td>
-            </tr>
-            <tr>
-              <td>Principal</td>
-              <td><strong>{{ selectedSchool.principal }}</strong></td>
-            </tr>
-            <tr>
-              <td>Classes Upto</td>
-              <td>{{ selectedSchool.classes_upto }}</td>
-            </tr>
-            <tr>
-              <td>Cluster</td>
-              <td>{{ selectedSchool.cluster }}</td>
-            </tr>
-            <tr>
-              <td>CDO</td>
-              <td>{{ selectedSchool.cdo }}</td>
-            </tr>
-            <tr>
-              <td>Resource Center</td>
-              <td>{{ selectedSchool.sk }}</td>
-            </tr>
-            <tr>
-              <td>Municipality</td>
-              <td>{{ selectedSchool.nagarpalika }}</td>
-            </tr>
-            <tr>
-              <td>Adress</td>
-              <td>{{ selectedSchool.address }}</td>
-            </tr>
-            <tr>
-              <td>Post Box</td>
-              <td>{{ selectedSchool.post_box }}</td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td>{{ selectedSchool.email }}</td>
-            </tr>
-            <tr>
-              <td>Office No.</td>
-              <td>{{ selectedSchool.office_no }}</td>
-            </tr>
-            <tr>
-              <td>Mobile No.</td>
-              <td>{{ selectedSchool.mobile_no }}</td>
-            </tr>
-            <tr>
-              <td>Contact Person</td>
-              <td>{{ selectedSchool.contact_person }}</td>
-            </tr>
-            <tr>
-              <td>Contact No.</td>
-              <td>{{ selectedSchool.contact_no }}</td>
-            </tr>
-            <tr>
-              <td>Home No.</td>
-              <td>{{ selectedSchool.home_no }}</td>
-            </tr>
-          </table>
-      </div>
-      <div class="flex-1 f-parent f-justify-right">
-        <div *ngIf="photos" style="padding-top: 70px;">
-          <img [src]="selectedSchool.photo" />
+        <div class="f-parent f-space-between f-align-center f-row">
+          <h3 class="flex-8">{{selectedSchool.name}}</h3>
+          <button class="flex-1 mute" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button class="flex-1 mute" mat-icon-button>
+            <mat-icon>print</mat-icon>
+          </button>
         </div>
+        <table class="table" style="font-size: 14px">
+          <tr>
+            <td style="width: 30%">Name</td>
+            <td style="width: 70%">
+              {{ selectedSchool.name}}
+            </td>
+          </tr>
+          <tr>
+            <td>ESTD</td>
+            <td>
+              {{ selectedSchool.estd}}
+            </td>
+          </tr>
+          <tr>
+            <td>Principal</td>
+            <td><strong>{{ selectedSchool.principal }}</strong></td>
+          </tr>
+          <tr>
+            <td>Classes Upto</td>
+            <td>{{ selectedSchool.classes_upto }}</td>
+          </tr>
+          <tr>
+            <td>Cluster</td>
+            <td>{{ selectedSchool.cluster }}</td>
+          </tr>
+          <tr>
+            <td>CDO</td>
+            <td>{{ selectedSchool.cdo }}</td>
+          </tr>
+          <tr>
+            <td>Resource Center</td>
+            <td>{{ selectedSchool.sk }}</td>
+          </tr>
+          <tr>
+            <td>Municipality</td>
+            <td>{{ selectedSchool.nagarpalika }}</td>
+          </tr>
+          <tr>
+            <td>Adress</td>
+            <td>{{ selectedSchool.address }}</td>
+          </tr>
+          <tr>
+            <td>Post Box</td>
+            <td>{{ selectedSchool.post_box }}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{ selectedSchool.email }}</td>
+          </tr>
+          <tr>
+            <td>Office No.</td>
+            <td>{{ selectedSchool.office_no }}</td>
+          </tr>
+          <tr>
+            <td>Mobile No.</td>
+            <td>{{ selectedSchool.mobile_no }}</td>
+          </tr>
+          <tr>
+            <td>Contact Person</td>
+            <td>{{ selectedSchool.contact_person }}</td>
+          </tr>
+          <tr>
+            <td>Contact No.</td>
+            <td>{{ selectedSchool.contact_no }}</td>
+          </tr>
+          <tr>
+            <td>Home No.</td>
+            <td>{{ selectedSchool.home_no }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="flex-1 f-parent f-justify-center f-column">
+        <div *ngIf="photos" style="padding-top: 70px;" class="f-parent f-justify-center">
+          <img [src]="selectedSchool.photo" style="margin: 0 auto" />
+        </div>
+        <button mat-stroked-button color="primary" style="margin: 15px;">
+          <mat-icon>image</mat-icon> Change Image
+        </button>
       </div>
 
     </div>

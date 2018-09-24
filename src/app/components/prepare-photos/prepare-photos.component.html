@@ -1,0 +1,25 @@
+<app-header [headerData]="headerData"></app-header>
+<div class="f-parent f-space-between f-align-top f-row">
+<button mat-stroked-button color="primary" style="margin: 15px;">
+  <mat-icon>folder</mat-icon> Open Folder
+</button>
+<button mat-flat-button color="accent" style="margin: 15px;">
+    <mat-icon>save</mat-icon> Save
+  </button>
+</div>
+<div class="f-parent f-space-between f-align-top f-row">
+    <div class="flex-1" style="padding: 5px 15px">
+      Original
+    </div>
+    <div class="flex-1" style="padding: 5px 15px">
+        Preview
+    </div>
+  </div>
+<div class="f-parent f-space-between f-align-top f-row">
+  <div class="flex-1 original-image-container">
+    <img [src]="image">
+  </div>
+  <div class="flex-1 thumb-image-container">
+      <img [src]="image" style="height: 450px; width: 300px">
+  </div>
+</div>

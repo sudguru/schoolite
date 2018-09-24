@@ -1,3 +1,4 @@
+import { PreparePhotosComponent } from './components/prepare-photos/prepare-photos.component';
 import { SqliteComponent } from './components/sqlite/sqlite.component';
 import { ProductComponent } from './components/product/product.component';
 import { HomeComponent } from './components/home/home.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
         path: 'products',
         component: ProductComponent
     },
+    { path: 'preparephotos', component: PreparePhotosComponent },
     { path: 'login', component: LoginComponent },
     { path: '**', redirectTo: '' }
 ];

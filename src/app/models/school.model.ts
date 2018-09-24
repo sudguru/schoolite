@@ -21,4 +21,6 @@ export interface School {
   sk_id: number;
   sk?: string;
   photo?: string;
+  mts?: number;
+  deleted?: number;
 }
