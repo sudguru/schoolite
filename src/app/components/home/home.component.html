@@ -106,7 +106,7 @@
         <div *ngIf="photos" style="padding-top: 70px;" class="f-parent f-justify-center">
           <img [src]="selectedSchool.photo" style="margin: 0 auto" />
         </div>
-        <button mat-stroked-button color="primary" style="margin: 15px;">
+        <button mat-stroked-button color="primary" style="margin: 15px;" (click)="openPreparePhoto()">
           <mat-icon>image</mat-icon> Change Image
         </button>
       </div>

@@ -1,7 +1,6 @@
-<app-header [headerData]="headerData"></app-header>
 <div class="f-parent f-space-between f-align-top f-row">
-<button mat-stroked-button color="primary" style="margin: 15px;">
-  <mat-icon>folder</mat-icon> Open Folder
+<button mat-stroked-button color="primary" style="margin: 15px;" (click)="openDialog()">
+  <mat-icon>image</mat-icon> Open Image
 </button>
 <button mat-flat-button color="accent" style="margin: 15px;">
     <mat-icon>save</mat-icon> Save

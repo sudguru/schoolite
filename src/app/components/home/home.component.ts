@@ -126,13 +126,13 @@ export class HomeComponent implements OnInit {
     console.log(photopath);
     const tempimg = this.electronService.nativeImage.createFromPath(photopath);
     const imageSize = tempimg.getSize();
-    const imageWidth = 150;
+    const imageWidth = 200;
     const imageHeight = (imageSize.height / imageSize.width) * imageWidth;
     this.selectedSchool.photo = tempimg.resize({width: imageWidth, height: imageHeight}).toDataURL();
 
   }
 
-  goToPreparePhoto() {
+  openPreparePhoto() {
     this.dialog.open(PreparePhotosComponent, {
       width: '1000px',
       disableClose: false,
