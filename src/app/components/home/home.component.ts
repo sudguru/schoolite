@@ -1,10 +1,9 @@
 import { PreparePhotosComponent } from './../prepare-photos/prepare-photos.component';
 import { ElectronService } from './../../providers/electron.service';
 import { School } from './../../models/school.model';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject, pipe } from 'rxjs';
-const stringSimilarity = require('string-similarity');
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -67,10 +66,15 @@ export class HomeComponent implements OnInit {
       this.dbSchools = result;
       this.schools = this.dbSchools;
     });
+
+    this.electronService.ipcRenderer.on('imageUpdated', (evt, result) => {
+      this.setPhoto(this.selectedSchool.photo);
+    });
+
    }
 
   ngOnInit() {
-    this.electronService.ipcRenderer.send('getData');
+    this.electronService.ipcRenderer.send('getSchoolData');
     this.windowHeight = window.innerHeight - 100;
     // this.windowHeight = this.electronService.remote.getCurrentWindow().getBounds().height;
     console.log(this.windowHeight);
@@ -121,22 +125,49 @@ export class HomeComponent implements OnInit {
 
   showSchool(school: School) {
     this.selectedSchool = school;
-    const result = stringSimilarity.findBestMatch(school.name, this.photos);
-    const photopath = this.imageDir + '/' + result.bestMatch.target;
-    console.log(photopath);
-    const tempimg = this.electronService.nativeImage.createFromPath(photopath);
-    const imageSize = tempimg.getSize();
+
+    if (!this.selectedSchool.photo) {
+      this.selectedSchool.photo = 'dummy.jpg';
+    }
+    this.setPhoto(this.selectedSchool.photo);
+  }
+
+  setPhoto(photo) {
+    const photopath = this.imageDir + '/' + photo;
+    const imagetoShow = this.electronService.nativeImage.createFromPath(photopath);
+    const imageSize = imagetoShow.getSize();
     const imageWidth = 200;
     const imageHeight = (imageSize.height / imageSize.width) * imageWidth;
-    this.selectedSchool.photo = tempimg.resize({width: imageWidth, height: imageHeight}).toDataURL();
+    this.selectedSchool.photoDataUrl = imagetoShow.resize({width: imageWidth, height: imageHeight}).toDataURL();
+  }
 
+  slugify(text) {
+    return text.toString().toLowerCase()
+      .replace(/\s+/g, '-')           // Replace spaces with -
+      .replace(/[^.\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '');            // Trim - from end of text
   }
 
   openPreparePhoto() {
-    this.dialog.open(PreparePhotosComponent, {
+
+    const dialogRef = this.dialog.open(PreparePhotosComponent, {
       width: '1000px',
       disableClose: false,
-      autoFocus: true
+      autoFocus: true,
+      data: this.selectedSchool.name
+    });
+    const that = this;
+    dialogRef.afterClosed().subscribe(selectedImage => {
+      const data = {
+        id: that.selectedSchool.id,
+        filename: selectedImage
+      };
+      if (selectedImage) {
+        this.selectedSchool.photo = selectedImage;
+        this.electronService.ipcRenderer.send('saveImage', data);
+      }
     });
   }
 

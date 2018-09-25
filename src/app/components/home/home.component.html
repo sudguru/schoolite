@@ -104,11 +104,13 @@
       </div>
       <div class="flex-1 f-parent f-justify-center f-column">
         <div *ngIf="photos" style="padding-top: 70px;" class="f-parent f-justify-center">
-          <img [src]="selectedSchool.photo" style="margin: 0 auto" />
+          <img [src]="selectedSchool.photoDataUrl" style="margin: 0 auto" />
         </div>
         <button mat-stroked-button color="primary" style="margin: 15px;" (click)="openPreparePhoto()">
           <mat-icon>image</mat-icon> Change Image
         </button>
+        <hr/>
+        {{selectedSchool.id}}
       </div>
 
     </div>

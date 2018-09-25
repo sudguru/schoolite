@@ -21,9 +21,9 @@ const knex = require('knex')({
 });
 
 exports.sqlTasks = () => {
-    // get Schools
-    ipcMain.on('getData', function (event) {
-      const result = knex.from('schools')
+
+    ipcMain.on('getSchoolData', function (event) {
+      const result = knex.select('schools.*').from('schools')
       .innerJoin('sk', 'schools.sk_id', 'sk.id')
       .innerJoin('municipality', 'schools.n_id', 'municipality.id')
       .innerJoin('clusters', 'schools.c_id', 'clusters.id');
@@ -32,7 +32,14 @@ exports.sqlTasks = () => {
       });
     });
 
-    // add update Schools
+    ipcMain.on('saveImage', function (event, filedata) {
+      console.log('saving image', filedata.filename, ' ' , +filedata.id );
+      const result = knex('schools')
+      .where('id', +filedata.id)
+      .update({photo: filedata.filename});
+      result.then(outcome => { event.sender.send('imageUpdated', filedata.filename); });
+    });
+
     ipcMain.on('updateSchool', function (event, school) {
       const ts = Date.now();
       if (school.id === 0) {
@@ -94,7 +101,6 @@ exports.sqlTasks = () => {
       }
     });
 
-    // delete School
     ipcMain.on('deleteSchool', function (event, school_id) {
       const ts = Date.now();
       const result = knex('schools')
@@ -105,7 +111,7 @@ exports.sqlTasks = () => {
       });
     });
 
-    // get Clusters
+
     ipcMain.on('getClusterData', function (event) {
       const result = knex.select().table('clusters');
       result.then(rows => {
@@ -113,7 +119,6 @@ exports.sqlTasks = () => {
       });
     });
 
-    // add update Clusters
     ipcMain.on('updateCluster', function (event, cluster) {
       const ts = Date.now();
       if (cluster.id === 0) {
@@ -131,7 +136,6 @@ exports.sqlTasks = () => {
       }
     });
 
-    // delete Clusters
     ipcMain.on('deleteCluster', function (event, cluster_id) {
       const ts = Date.now();
       const result = knex('clusters')

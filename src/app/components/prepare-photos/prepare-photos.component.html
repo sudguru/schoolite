@@ -1,3 +1,4 @@
+<h4 style="padding:0; margin:0">{{schoolname}}</h4>
 <div class="f-parent f-space-between f-align-top f-row">
 <button mat-stroked-button color="primary" style="margin: 15px;" (click)="openDialog()">
   <mat-icon>image</mat-icon> Open Image
@@ -15,10 +16,6 @@
     </div>
   </div>
 <div class="f-parent f-space-between f-align-top f-row">
-  <div class="flex-1 original-image-container">
-    <img [src]="image">
-  </div>
-  <div class="flex-1 thumb-image-container">
-      <img [src]="image" style="height: 450px; width: 300px">
-  </div>
+  <div class="flex-1 original-image-container"></div>
+  <div class="flex-1 thumb-image-container"></div>
 </div>

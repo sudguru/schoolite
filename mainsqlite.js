@@ -19,9 +19,8 @@ var knex = require('knex')({
     }
 });
 exports.sqlTasks = function () {
-    // get Schools
-    electron_1.ipcMain.on('getData', function (event) {
-        var result = knex.from('schools')
+    electron_1.ipcMain.on('getSchoolData', function (event) {
+        var result = knex.select('schools.*').from('schools')
             .innerJoin('sk', 'schools.sk_id', 'sk.id')
             .innerJoin('municipality', 'schools.n_id', 'municipality.id')
             .innerJoin('clusters', 'schools.c_id', 'clusters.id');
@@ -29,7 +28,13 @@ exports.sqlTasks = function () {
             event.sender.send('resultSent', rows);
         });
     });
-    // add update Schools
+    electron_1.ipcMain.on('saveImage', function (event, filedata) {
+        console.log('saving image', filedata.filename, ' ', +filedata.id);
+        var result = knex('schools')
+            .where('id', +filedata.id)
+            .update({ photo: filedata.filename });
+        result.then(function (outcome) { event.sender.send('imageUpdated', filedata.filename); });
+    });
     electron_1.ipcMain.on('updateSchool', function (event, school) {
         var ts = Date.now();
         if (school.id === 0) {
@@ -91,7 +96,6 @@ exports.sqlTasks = function () {
             });
         }
     });
-    // delete School
     electron_1.ipcMain.on('deleteSchool', function (event, school_id) {
         var ts = Date.now();
         var result = knex('schools')
@@ -101,14 +105,12 @@ exports.sqlTasks = function () {
             event.sender.send('schoolDeleted', outcome);
         });
     });
-    // get Clusters
     electron_1.ipcMain.on('getClusterData', function (event) {
         var result = knex.select().table('clusters');
         result.then(function (rows) {
             event.sender.send('clusterDataSent', rows);
         });
     });
-    // add update Clusters
     electron_1.ipcMain.on('updateCluster', function (event, cluster) {
         var ts = Date.now();
         if (cluster.id === 0) {
@@ -126,7 +128,6 @@ exports.sqlTasks = function () {
             });
         }
     });
-    // delete Clusters
     electron_1.ipcMain.on('deleteCluster', function (event, cluster_id) {
         var ts = Date.now();
         var result = knex('clusters')
