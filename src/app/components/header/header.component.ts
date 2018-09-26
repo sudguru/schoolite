@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
     private electronService: ElectronService
     ) {
 
-      this.electronService.ipcRenderer.on('clusterDataSent', (evt, result) => {
+      this.electronService.ipcRenderer.on('clusterDataSentforSync', (evt, result) => {
         this.clusters = result;
         const json_clusters = JSON.stringify(this.clusters);
         // console.log('cluster string', this.clusters);
@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit {
   }
 
   syncClusters() {
-    this.electronService.ipcRenderer.send('getClusterData');
+    this.electronService.ipcRenderer.send('getClusterData', 'forSync');
   }
 
   syncPhotos() {

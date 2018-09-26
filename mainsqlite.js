@@ -19,6 +19,23 @@ var knex = require('knex')({
     }
 });
 exports.sqlTasks = function () {
+    electron_1.ipcMain.on('login', function (event, credentials) {
+        console.log(credentials);
+        var result = knex('users')
+            .where({
+            email: credentials.email,
+            password: credentials.password
+        }).select();
+        result.then(function (rows) {
+            console.log(rows);
+            if (rows.length === 1) {
+                event.sender.send('loginSuccess', rows);
+            }
+            else {
+                event.sender.send('loginFailure', rows);
+            }
+        });
+    });
     electron_1.ipcMain.on('getSchoolData', function (event) {
         var result = knex.select('schools.*').from('schools')
             .innerJoin('sk', 'schools.sk_id', 'sk.id')
@@ -57,9 +74,9 @@ exports.sqlTasks = function () {
                 home_no: school.home_no,
                 cdo: school.cdo,
                 sk_id: school.sk_id,
-                photo: school.photo,
-                mts: school.mts,
-                deleted: school.deleted
+                photo: 'dummy.jpg',
+                mts: ts,
+                deleted: 0
             });
             result.then(function (outcome) {
                 event.sender.send('schoolAdded', outcome);
@@ -87,9 +104,7 @@ exports.sqlTasks = function () {
                 home_no: school.home_no,
                 cdo: school.cdo,
                 sk_id: school.sk_id,
-                photo: school.photo,
-                mts: school.mts,
-                deleted: school.deleted
+                mts: ts
             });
             result.then(function (outcome) {
                 event.sender.send('schoolModified', outcome);
@@ -105,16 +120,23 @@ exports.sqlTasks = function () {
             event.sender.send('schoolDeleted', outcome);
         });
     });
-    electron_1.ipcMain.on('getClusterData', function (event) {
+    electron_1.ipcMain.on('getClusterData', function (event, forWhat) {
         var result = knex.select().table('clusters');
         result.then(function (rows) {
-            event.sender.send('clusterDataSent', rows);
+            if (forWhat === 'forApp') {
+                event.sender.send('clusterDataSentforApp', rows);
+            }
+            else {
+                event.sender.send('clusterDataSentforSync', rows);
+            }
         });
     });
     electron_1.ipcMain.on('updateCluster', function (event, cluster) {
         var ts = Date.now();
         if (cluster.id === 0) {
-            var result = knex('clusters').insert({ id: ts, cluster: cluster.cluster, cluster_nepali: cluster.cluster_nepali, mts: ts });
+            var result = knex('clusters').insert({
+                id: ts, cluster: cluster.cluster, cluster_nepali: cluster.cluster_nepali, mts: ts, deleted: 0
+            });
             result.then(function (outcome) {
                 event.sender.send('clusterAdded', outcome);
             });
@@ -135,6 +157,15 @@ exports.sqlTasks = function () {
             .update({ deleted: 1, mts: ts });
         result.then(function (outcome) {
             event.sender.send('clusterDeleted', outcome);
+        });
+    });
+    electron_1.ipcMain.on('restoreCluster', function (event, cluster_id) {
+        var ts = Date.now();
+        var result = knex('clusters')
+            .where('id', cluster_id)
+            .update({ deleted: 0, mts: ts });
+        result.then(function (outcome) {
+            event.sender.send('clusterRestored', outcome);
         });
     });
     electron_1.ipcMain.on('syncClusterDataFromRemote', function (event, remoteClusterData) {

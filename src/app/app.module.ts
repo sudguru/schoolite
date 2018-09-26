@@ -19,10 +19,8 @@ import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProductComponent } from './components/product/product.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SqliteComponent } from './components/sqlite/sqlite.component';
 import { ClusterComponent } from './components/cluster/cluster.component';
 import { SyncPhotosComponent } from './components/sync-photos/sync-photos.component';
 import { PreparePhotosComponent } from './components/prepare-photos/prepare-photos.component';
@@ -33,10 +31,8 @@ import { PreparePhotosComponent } from './components/prepare-photos/prepare-phot
     AppComponent,
     HomeComponent,
     WebviewDirective,
-    ProductComponent,
     LoginComponent,
     HeaderComponent,
-    SqliteComponent,
     ClusterComponent,
     SyncPhotosComponent,
     PreparePhotosComponent

@@ -10,6 +10,7 @@ const fs = require('fs');
 })
 export class PreparePhotosComponent implements OnInit {
   schoolname: string;
+  currentFile: string;
   finalPhoto: any;
   imageDir = '/Users/mac/.schoolite/ID';
   constructor(
@@ -21,6 +22,7 @@ export class PreparePhotosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentFile = null;
   }
 
   openDialog() {
@@ -46,16 +48,20 @@ export class PreparePhotosComponent implements OnInit {
         // save image to 'Predefined Folder'
         const ofilename = selectedPath[0].substring(selectedPath[0].lastIndexOf('/') + 1);
         console.log(ofilename);
-        const filename = this.slugify(ofilename);
-        console.log(filename);
-        fs.writeFile(this.imageDir + '/' + filename, this.finalPhoto.toJPEG(100), () => {});
-        // Close and send data
-        this.dialogRef.close(filename);
-      } else {
-        this.dialogRef.close(null);
+        this.currentFile = this.slugify(ofilename);
       }
 
     });
+  }
+
+  saveAndClose() {
+    if (this.currentFile) {
+      fs.writeFile(this.imageDir + '/' + this.currentFile, this.finalPhoto.toJPEG(100), () => {});
+        // Close and send data
+        this.dialogRef.close(this.currentFile);
+    } else {
+      this.dialogRef.close(null);
+    }
   }
 
   slugify(text) {

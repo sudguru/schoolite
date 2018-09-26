@@ -1,9 +1,10 @@
+import { ElectronService } from './../../providers/electron.service';
 import { ServerResponse } from './../../models/login-response.model';
-import { AuthenticationService } from './../../services/auth.service';
 import { Login } from './../../models/login.model';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -15,37 +16,42 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit {
   returnUrl: string;
   loginUser: Login = {
-    username: '',
+    email: '',
     password: ''
   };
 
 
   constructor(
     private snackbar: MatSnackBar,
-    private authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
-    ) { }
+    private electronService: ElectronService
+    ) {
+
+      this.electronService.ipcRenderer.on('loginSuccess', (evt, rows) => {
+        // console.log('pass', rows);
+        const data = {
+          name: rows[0].first_name + ' ' + rows[0].last_name,
+          is_admin: rows[0].is_admin
+        };
+        localStorage.setItem('token', JSON.stringify(data));
+        this.snackbar.open(`Welcome ${data.name}.`, '', { duration: 2000 });
+        this.router.navigate(['/home']);
+      });
+
+      this.electronService.ipcRenderer.on('loginFailure', (evt, rows) => {
+        this.snackbar.open(`Invalid Login. Try Again.`, '', { duration: 2000 });
+      });
+
+    }
 
   ngOnInit() {
-    // reset login status
-    this.authService.logout();
-
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    // console.log('ru', this.returnUrl);
+    localStorage.removeItem('token');
   }
 
   login (loginUser: Login) {
-    // console.log(loginUser);
-    this.authService.login(loginUser.username, loginUser.password).subscribe((result: ServerResponse) => {
-      if (!result.error) {
-        this.snackbar.open(`Welcome ${loginUser.username}.`, '', { duration: 3000 });
-        this.router.navigate([this.returnUrl]);
-      } else {
-        this.snackbar.open(`Invalid Login. Try Again.`, '', { duration: 3000 });
-      }
-    });
+    console.log(loginUser);
+    this.electronService.ipcRenderer.send('login', loginUser);
   }
 
 }

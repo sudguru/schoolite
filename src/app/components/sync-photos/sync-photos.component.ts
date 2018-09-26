@@ -20,6 +20,11 @@ export class SyncPhotosComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    this.getLocalPhotosList();
+    this.getRemotePhotosList();
+  }
+
+  getLocalPhotosList() {
     const that = this;
     this.electronService.fs.readdir(this.imageDir, function(err, dir) {
       const photoFiles = [];
@@ -27,46 +32,58 @@ export class SyncPhotosComponent implements OnInit {
         photoFiles.push(filePath);
       }
       that.localFiles = photoFiles;
+      console.log('local', that.localFiles);
     });
   }
 
-  startDownload () {
+  getRemotePhotosList() {
     this.http.get('https://mcan.org.np/schoolite/src/public/getRemotePhotos')
-        .subscribe((res) => {
-           // this.remoteFiles = res;
-           this.remoteFiles = Object.keys(res).map(function(key) {
-            return [res[key]];
-          });
-          this.remoteFiles.forEach(remoteFile => {
-            if (!this.localFiles.includes(remoteFile)) {
-              this.downloadFile(this.remoteDir + '/' + remoteFile, this.imageDir + '/' + remoteFile);
-            }
-          });
-        });
+      .subscribe((res) => {
+        this.remoteFiles = res.toString().split(',');
+        console.log('remote', this.remoteFiles);
+      });
   }
 
-  startUpload () {
-    this.localFiles.forEach(localFile => {
-      if (!this.remoteFiles.includes(localFile)) {
-        this.uploadFile(localFile);
+  async startSync() {
+    document.querySelector('#progress').innerHTML = 'Sync Started!';
+    await this.startDownload();
+    await this.startUpload();
+  }
+
+  startDownload () {
+    console.log('startdownload');
+    this.remoteFiles.forEach(remoteFile => {
+      if (!this.localFiles.includes(remoteFile)) {
+        this.downloadFile(this.remoteDir + '/' + remoteFile, this.imageDir + '/' + remoteFile, remoteFile);
       }
     });
   }
 
+  startUpload () {
+    console.log('startupload');
+    this.localFiles.forEach(localFile => {
+      if (!this.remoteFiles.includes(localFile)) {
+        if (localFile.substring(0, 1) !== '.') {
+          this.uploadFile(localFile);
+        }
+      }
+    });
+    // document.querySelector('#progress').innerHTML += `<br>Sync Complete !`;
+  }
+
   uploadFile(localFile: string) {
     const filetoUpload = this.electronService.nativeImage.createFromPath(this.imageDir + '/' + localFile).toDataURL();
-    const uploadData = new FormData();
-    uploadData.append('myFile', filetoUpload);
-    this.http.post('https://mcan.org.np/schoolite/src/public/uploadPhoto', filetoUpload)
+    // const uploadData = new FormData();
+    // uploadData.append('myFile', filetoUpload);
+    this.http.post('https://mcan.org.np/schoolite/src/public/uploadPhoto', {
+      myFile: filetoUpload, filename: localFile, secret: 'SudeepsSecret'
+    })
     .subscribe(res => {
-      console.log(res);
+      document.querySelector('#progress').innerHTML += `<br>${res}.`;
     });
   }
 
-  downloadFile(file_url , targetPath) {
-    // Save variable to know progress
-    let received_bytes = 0;
-    let total_bytes = 0;
+  downloadFile(file_url , targetPath, remoteFile) {
 
     const req = request({
         method: 'GET',
@@ -76,26 +93,11 @@ export class SyncPhotosComponent implements OnInit {
     const out = fs.createWriteStream(targetPath);
     req.pipe(out);
     const that = this;
-    req.on('response', function ( data ) {
-        // Change the total bytes value to get progress later.
-        total_bytes = +(data.headers['content-length']);
-    });
 
-    req.on('data', function(chunk) {
-        // Update the received bytes
-        received_bytes += chunk.length;
-
-        that.showProgress(received_bytes, total_bytes);
-    });
 
     req.on('end', function() {
-        console.log('File succesfully downloaded');
+      document.querySelector('#progress').innerHTML += `<br>${remoteFile} Downloaded.`;
     });
 }
 
-  showProgress(received, total) {
-      const percentage = (received * 100) / total;
-      const progress = percentage + '% | ' + received + ' bytes out of ' + total + ' bytes.';
-      document.querySelector('#progress').innerHTML = progress;
-  }
 }
