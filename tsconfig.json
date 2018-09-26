@@ -20,7 +20,7 @@
   },
   "include": [
     "main.ts",
-    "mainsqlite.ts",
+    "server/**/*",
     "src/**/*"
   ],
   "exclude": [

@@ -1,8 +1,8 @@
 export interface School {
   id?: number;
   name: string;
-  n_id: number;
-  nagarpalika: string;
+  m_id: number;
+  municipality: string;
   ward_no: string;
   principal: string;
   address: string;

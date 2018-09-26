@@ -24,6 +24,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { ClusterComponent } from './components/cluster/cluster.component';
 import { SyncPhotosComponent } from './components/sync-photos/sync-photos.component';
 import { PreparePhotosComponent } from './components/prepare-photos/prepare-photos.component';
+import { MunicipalityComponent } from './components/municipality/municipality.component';
+import { SkComponent } from './components/sk/sk.component';
+import { ExtraFieldsComponent } from './components/extra-fields/extra-fields.component';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { PreparePhotosComponent } from './components/prepare-photos/prepare-phot
     HeaderComponent,
     ClusterComponent,
     SyncPhotosComponent,
-    PreparePhotosComponent
+    PreparePhotosComponent,
+    MunicipalityComponent,
+    SkComponent,
+    ExtraFieldsComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +57,9 @@ import { PreparePhotosComponent } from './components/prepare-photos/prepare-phot
   bootstrap: [AppComponent],
   entryComponents: [
     ClusterComponent,
-    SyncPhotosComponent
+    SyncPhotosComponent,
+    MunicipalityComponent,
+    SkComponent
   ]
 })
 export class AppModule { }

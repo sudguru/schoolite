@@ -1,3 +1,5 @@
+import { SkComponent } from './../sk/sk.component';
+import { MunicipalityComponent } from './../municipality/municipality.component';
 import { SyncPhotosComponent } from './../sync-photos/sync-photos.component';
 import { Cluster } from './../../models/cluster.model';
 import { ElectronService } from './../../providers/electron.service';
@@ -70,6 +72,22 @@ export class HeaderComponent implements OnInit {
 
   cluster() {
     this.dialog.open(ClusterComponent, {
+      width: '1000px',
+      disableClose: false,
+      autoFocus: true
+    });
+  }
+
+  municipality() {
+    this.dialog.open(MunicipalityComponent, {
+      width: '1000px',
+      disableClose: false,
+      autoFocus: true
+    });
+  }
+
+  sk() {
+    this.dialog.open(SkComponent, {
       width: '1000px',
       disableClose: false,
       autoFocus: true

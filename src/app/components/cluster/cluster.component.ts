@@ -28,6 +28,7 @@ export class ClusterComponent implements OnInit {
 
     this.electronService.ipcRenderer.on('clusterAdded', (evt, result) => {
       if (result) {
+        this.setNewCluster();
         this.electronService.ipcRenderer.send('getClusterData', 'forApp');
         this.snackbar.open(`Successfully Added.`, '', { duration: 1000 });
       } else {

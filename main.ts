@@ -1,7 +1,11 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-const ipcTasks = require('./mainsqlite');
+const ipcTasksLogin = require('./server/login');
+const ipcTasksSchool = require('./server/school');
+const ipcTasksCluster = require('./server/cluster');
+const ipcTasksMunitcipality = require('./server/municipality');
+const ipcTasksSK = require('./server/sk');
 
 
 let win, serve;
@@ -49,7 +53,11 @@ try {
 
   app.on('ready', () => {
     createWindow();
-    ipcTasks.sqlTasks();
+    ipcTasksLogin.sqlTasksLogin();
+    ipcTasksSchool.sqlTasksSchools();
+    ipcTasksCluster.sqlTasksClusters();
+    ipcTasksMunitcipality.sqlTasksMunicipality();
+    ipcTasksSK.sqlTasksSK();
   });
 
   // Quit when all windows are closed.

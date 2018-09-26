@@ -85,8 +85,8 @@ export class HomeComponent implements OnInit {
     this.newSchool = {
       id: 0,
       name: '',
-      n_id: 0,
-      nagarpalika: '',
+      m_id: 0,
+      municipality: '',
       ward_no: '',
       principal: '',
       address: '',
