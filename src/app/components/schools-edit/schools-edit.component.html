@@ -81,8 +81,15 @@
       <input matInput placeholder="Contact No." [(ngModel)]="school.contact_no" name="contact_no">
     </mat-form-field>
     <mat-form-field class="one-fourth">
-      <input matInput placeholder="School Type" [(ngModel)]="school.school_type" name="school_type">
+      <input matInput placeholder="" [(ngModel)]="school.school_type" name="school_type">
     </mat-form-field>
+
+    <mat-form-field class="one-fourth">
+        <mat-select [(value)]="school.school_type" placeholder="School Type">
+          <mat-option value="Private">Private</mat-option>
+          <mat-option value="Public">Public</mat-option>
+        </mat-select>
+      </mat-form-field>
 
 
 
