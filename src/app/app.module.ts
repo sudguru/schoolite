@@ -27,6 +27,7 @@ import { PreparePhotosComponent } from './components/prepare-photos/prepare-phot
 import { MunicipalityComponent } from './components/municipality/municipality.component';
 import { SkComponent } from './components/sk/sk.component';
 import { ExtraFieldsComponent } from './components/extra-fields/extra-fields.component';
+import { SchoolsEditComponent } from './components/schools-edit/schools-edit.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ExtraFieldsComponent } from './components/extra-fields/extra-fields.com
     PreparePhotosComponent,
     MunicipalityComponent,
     SkComponent,
-    ExtraFieldsComponent
+    ExtraFieldsComponent,
+    SchoolsEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,9 @@ import { ExtraFieldsComponent } from './components/extra-fields/extra-fields.com
     ClusterComponent,
     SyncPhotosComponent,
     MunicipalityComponent,
-    SkComponent
+    SkComponent,
+    ExtraFieldsComponent,
+    SchoolsEditComponent
   ]
 })
 export class AppModule { }

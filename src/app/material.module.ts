@@ -16,6 +16,7 @@ import {
     MatSlideToggleModule,
     MatTabsModule,
     MatCardModule,
+    MatSelectModule
 } from '@angular/material';
 
 @NgModule({
@@ -35,6 +36,7 @@ import {
         MatSlideToggleModule,
         MatTabsModule,
         MatCardModule,
+        MatSelectModule
     ],
     exports: [
         MatFormFieldModule,
@@ -52,6 +54,7 @@ import {
         MatSlideToggleModule,
         MatTabsModule,
         MatCardModule,
+        MatSelectModule
     ]
 })
 

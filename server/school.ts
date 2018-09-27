@@ -14,6 +14,19 @@ exports.sqlTasksSchools = () => {
       });
     });
 
+    ipcMain.on('getLookUps', function(event) {
+      const result = { municipalities: [], sks: [], clusters: []};
+      return knex.select().from('municipality')
+      .then(rows => result.municipalities = rows)
+      .then(() => knex.select().from('sk'))
+      .then(rows => result.sks = rows)
+      .then(() => knex.select().from('clusters'))
+      .then(rows => result.clusters = rows)
+      .then(() => {
+        event.sender.send('lookupDataSent', result);
+      });
+    });
+
     ipcMain.on('saveImage', function (event, filedata) {
       console.log('saving image', filedata.filename, ' ' , +filedata.id );
       const result = knex('schools')

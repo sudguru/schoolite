@@ -4,6 +4,7 @@ export interface School {
   m_id: number;
   municipality: string;
   ward_no: string;
+  school_type: string;
   principal: string;
   address: string;
   office_no: string;

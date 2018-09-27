@@ -12,6 +12,18 @@ exports.sqlTasksSchools = function () {
             event.sender.send('resultSent', rows);
         });
     });
+    electron_1.ipcMain.on('getLookUps', function (event) {
+        var result = { municipalities: [], sks: [], clusters: [] };
+        return db_1.knex.select().from('municipality')
+            .then(function (rows) { return result.municipalities = rows; })
+            .then(function () { return db_1.knex.select().from('sk'); })
+            .then(function (rows) { return result.sks = rows; })
+            .then(function () { return db_1.knex.select().from('clusters'); })
+            .then(function (rows) { return result.clusters = rows; })
+            .then(function () {
+            event.sender.send('lookupDataSent', result);
+        });
+    });
     electron_1.ipcMain.on('saveImage', function (event, filedata) {
         console.log('saving image', filedata.filename, ' ', +filedata.id);
         var result = db_1.knex('schools')

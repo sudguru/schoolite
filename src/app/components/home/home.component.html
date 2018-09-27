@@ -1,5 +1,5 @@
 <app-header [headerData]="headerData"></app-header>
-<button mat-fab color="primary" class="fab" *ngIf="selectedSchool" (click)="addEdit(newSchool)">
+<button mat-fab color="primary" class="fab" (click)="addEdit(newSchool)">
   <mat-icon>add</mat-icon>
 </button>
 
@@ -24,7 +24,7 @@
       <div class="flex-3">
         <div class="f-parent f-space-between f-align-center f-row">
           <h3 class="flex-8">{{selectedSchool.name}}</h3>
-          <button class="flex-1 mute" mat-icon-button>
+          <button class="flex-1 mute" mat-icon-button (click)="addEdit(selectedSchool)">
             <mat-icon>edit</mat-icon>
           </button>
           <button class="flex-1 mute" mat-icon-button>
@@ -111,6 +111,7 @@
         </button>
         <hr/>
         {{selectedSchool.id}}
+        {{ newSchool.principal}}
       </div>
 
     </div>

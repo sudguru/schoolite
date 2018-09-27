@@ -1,10 +1,11 @@
+import { SchoolsEditComponent } from './../schools-edit/schools-edit.component';
 import { PreparePhotosComponent } from './../prepare-photos/prepare-photos.component';
 import { ElectronService } from './../../providers/electron.service';
 import { School } from './../../models/school.model';
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject, pipe } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
     private electronService: ElectronService,
     private router: Router,
     public dialog: MatDialog,
+    private snackbar: MatSnackBar
     ) {
     this.searchChanged.pipe(
       debounceTime(500) // wait 300ms after the last event before emitting last event
@@ -71,6 +73,22 @@ export class HomeComponent implements OnInit {
       this.setPhoto(this.selectedSchool.photo);
     });
 
+    this.electronService.ipcRenderer.on('schoolAdded', (evt, result) => {
+      if (result) {
+        this.snackbar.open(`Successfully modified.`, '', { duration: 2000 });
+      } else {
+        this.snackbar.open(`Could NOT be modified.`, '', { duration: 2000 });
+      }
+    });
+
+    this.electronService.ipcRenderer.on('schoolModified', (evt, result) => {
+      if (result) {
+        this.snackbar.open(`Successfully modified.`, '', { duration: 2000 });
+      } else {
+        this.snackbar.open(`Could NOT be modified.`, '', { duration: 2000 });
+      }
+    });
+
    }
 
   ngOnInit() {
@@ -84,8 +102,9 @@ export class HomeComponent implements OnInit {
   setNewSchool() {
     this.newSchool = {
       id: 0,
-      name: '',
+      name: 'df',
       m_id: 0,
+      school_type: 'Private',
       municipality: '',
       ward_no: '',
       principal: '',
@@ -93,7 +112,7 @@ export class HomeComponent implements OnInit {
       office_no: '',
       mobile_no: '',
       classes_upto: '',
-      c_id: 0,
+      c_id: 1,
       cluster: '',
       email: '',
       contact_person: '',
@@ -172,29 +191,20 @@ export class HomeComponent implements OnInit {
   }
 
   addEdit(school: School) {
-    // const dialogRef = this.dialog.open(ProductEditComponent, {
-    //   width: '650px',
-    //   disableClose: true,
-    //   autoFocus: true,
-    //   data: product
-    // });
-    // const that = this;
-    // dialogRef.afterClosed().subscribe(readyProduct => {
-    //   if (readyProduct) {
-    //     this.productService.addEditProduct(readyProduct, that.parties).then(res => {
-    //       console.log(res);
-    //       if (res) {
-    //         this.snackbar.open(`${readyProduct.name} successfully added / modified.`, '', { duration: 3000 });
-    //         this.getProducts();
-    //       } else {
-    //         this.snackbar.open(`${readyProduct.name} could not be added / modified.`, '', { duration: 3000 });
-    //       }
-    //     });
-    //   } else {
-    //     this.getProducts();
-    //   }
-    //   this.setNewProduct();
-    // });
+    const dialogRef = this.dialog.open(SchoolsEditComponent, {
+      width: '1100px',
+      disableClose: false,
+      autoFocus: true,
+      data: school
+    });
+    dialogRef.afterClosed().subscribe(readySchool => {
+
+      if (readySchool) {
+        this.electronService.ipcRenderer.send('updateSchool', readySchool);
+        this.electronService.ipcRenderer.send('getSchoolData');
+        this.setNewSchool();
+      }
+    });
   }
 
 

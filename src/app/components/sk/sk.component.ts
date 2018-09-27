@@ -14,6 +14,7 @@ export class SkComponent implements OnInit {
   deletedSKs: SK[];
   sks: SK[];
   newSK: SK;
+  token: any;
   constructor(
     public dialogRef: MatDialogRef<SkComponent>,
     private electronService: ElectronService,
@@ -67,6 +68,7 @@ export class SkComponent implements OnInit {
   ngOnInit() {
     this.electronService.ipcRenderer.send('getSKData', 'forApp');
     this.setNewSK();
+    this.token = JSON.parse(localStorage.getItem('token'));
   }
 
 

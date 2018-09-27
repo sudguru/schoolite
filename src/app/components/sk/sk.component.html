@@ -68,6 +68,7 @@
       </tr>
   </tbody>
 </table>
+<div *ngIf="token.is_admin === 1">
 <h4>Deleted Data</h4>
 <table class="table table-striped table-hover table-bordered">
   <thead>
@@ -93,5 +94,6 @@
     </tr>
   </tbody>
   </table>
+</div>
 </mat-dialog-content>
 

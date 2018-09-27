@@ -1,9 +1,8 @@
-
 <div class="f-parent f-space-between f-align-top f-row">
-    <h3 mat-dialog-title fxFlex="auto">Clusters</h3>
-    <mat-icon fxFlex="40px" (click)="close()" style="cursor: pointer; font-size: 120%">close</mat-icon>
-  </div>
-  <mat-dialog-content>
+  <h3 mat-dialog-title fxFlex="auto">Clusters</h3>
+  <mat-icon fxFlex="40px" (click)="close()" style="cursor: pointer; font-size: 120%">close</mat-icon>
+</div>
+<mat-dialog-content>
   <table class="table table-striped table-hover table-bordered">
     <thead>
       <tr>
@@ -12,87 +11,62 @@
         <th>क्लस्टर</th>
         <th>&nbsp;</th>
       </tr>
-  
+
     </thead>
     <tbody>
       <tr *ngFor="let cluster of clusters; let i = index">
         <td>{{i+1}}</td>
         <td>
-          <input 
-            (change)="updateCluster(cluster)"
-            type="text"
-            matInput
-            placeholder="Cluster Name"
-            [(ngModel)]="cluster.cluster"
-            class = "dialog-text-box"
-            >
+          <input (change)="updateCluster(cluster)" type="text" matInput placeholder="Cluster Name" [(ngModel)]="cluster.cluster"
+            class="dialog-text-box">
         </td>
         <td>
-          <input 
-            (change)="updateCluster(cluster)"
-            type="text"
-            matInput
-            placeholder="Cluster Name Nepali"
-            [(ngModel)]="cluster.cluster_nepali"
-            class = "dialog-text-box"
-            >
+          <input (change)="updateCluster(cluster)" type="text" matInput placeholder="Cluster Name Nepali" [(ngModel)]="cluster.cluster_nepali"
+            class="dialog-text-box">
         </td>
 
         <td style="padding: 0"><button style="margin: 0" mat-button (click)="deleteCluster(cluster)" color="danger">Delete</button></td>
       </tr>
       <tr>
-          <td>NEW</td>
-          <td>
-            <input 
-              type="text"
-              matInput
-              placeholder="Cluster Name"
-              [(ngModel)]="newCluster.cluster"
-              required
-              class = "dialog-text-box"
-              >
-          </td>
-          <td>
-            <input 
-              type="text"
-              matInput
-              placeholder="Cluster Name Nepali"
-              [(ngModel)]="newCluster.cluster_nepali"
-              required
-              class = "dialog-text-box"
-              >
-          </td>
-          <td style="padding:0">
-            <button style="margin:0" mat-button (click)="updateCluster(newCluster)" color="primary">Save</button>
-          </td>
-        </tr>
+        <td>NEW</td>
+        <td>
+          <input type="text" matInput placeholder="Cluster Name" [(ngModel)]="newCluster.cluster" required class="dialog-text-box">
+        </td>
+        <td>
+          <input type="text" matInput placeholder="Cluster Name Nepali" [(ngModel)]="newCluster.cluster_nepali"
+            required class="dialog-text-box">
+        </td>
+        <td style="padding:0">
+          <button style="margin:0" mat-button (click)="updateCluster(newCluster)" color="primary">Save</button>
+        </td>
+      </tr>
     </tbody>
   </table>
-  <h4>Deleted Data</h4>
-  <table class="table table-striped table-hover table-bordered">
-    <thead>
-      <tr>
-        <th>SN</th>
-        <th>Cluster</th>
-        <th>क्लस्टर</th>
-        <th>&nbsp;</th>
-      </tr>
-  
-    </thead>
-    <tbody>
-      <tr *ngFor="let cluster of deletedClusters; let i = index">
-        <td>{{i+1}}</td>
-        <td>
-          {{cluster.cluster}}
-        </td>
-        <td>
-          {{cluster.cluster_nepali}}
-        </td>
+  <div *ngIf="token.is_admin === 1">
+    <h4>Deleted Data</h4>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>SN</th>
+          <th>Cluster</th>
+          <th>क्लस्टर</th>
+          <th>&nbsp;</th>
+        </tr>
 
-        <td style="padding: 0"><button style="margin: 0" mat-button (click)="restoreCluster(cluster)" color="danger">Restore</button></td>
-      </tr>
-    </tbody>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cluster of deletedClusters; let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            {{cluster.cluster}}
+          </td>
+          <td>
+            {{cluster.cluster_nepali}}
+          </td>
+
+          <td style="padding: 0"><button style="margin: 0" mat-button (click)="restoreCluster(cluster)" color="danger">Restore</button></td>
+        </tr>
+      </tbody>
     </table>
-  </mat-dialog-content>
-  
-  
+  </div>
+</mat-dialog-content>

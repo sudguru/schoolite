@@ -1,0 +1,98 @@
+<form #schoolForm="ngForm" novalidate>
+
+    <h3 mat-dialog-title fxFlex="auto">{{ school.id === 0 ? 'Add' : 'Edit' }} School</h3>
+
+
+  <mat-dialog-content>
+
+
+    <mat-form-field class="half-width">
+      <input matInput placeholder="School Name" [(ngModel)]="school.name" name="name" required>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Principal" [(ngModel)]="school.principal" name="principal">
+    </mat-form-field>
+
+    <mat-form-field class="one-third">
+      <input matInput placeholder="Classes Upto" [(ngModel)]="school.classes_upto" name="classes_upto">
+    </mat-form-field>
+
+    <mat-form-field class="one-third">
+      <input matInput placeholder="ESTD" [(ngModel)]="school.estd" name="estd">
+    </mat-form-field>
+
+    <mat-form-field class="one-third">
+      <input matInput placeholder="CDO" [(ngModel)]="school.cdo" name="cdo">
+    </mat-form-field>
+
+    <mat-form-field class="one-third">
+      <mat-select [(value)]="school.m_id" placeholder="Municipality">
+        <mat-option *ngFor="let municipality of municipalities"  [value]="municipality.id">{{municipality.municipality}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="one-third">
+      <mat-select [(value)]="school.c_id" placeholder="Cluster">
+        <mat-option *ngFor="let cluster of clusters"  [value]="cluster.id">{{cluster.cluster}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="one-third">
+      <mat-select [(value)]="school.sk_id" placeholder="Resource Center">
+        <mat-option *ngFor="let sk of sks"  [value]="sk.id">{{sk.sk}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Address" [(ngModel)]="school.address" name="address">
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input required type="email" matInput placeholder="Email" [(ngModel)]="school.email" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$">
+    </mat-form-field>
+
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="Ward No" [(ngModel)]="school.ward_no" name="ward_no">
+    </mat-form-field>
+
+    
+
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="Office Number" [(ngModel)]="school.office_no" name="office_no">
+    </mat-form-field>
+
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="Mobile No." [(ngModel)]="school.mobile_no" name="mobile_no">
+    </mat-form-field>
+
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="Home No." [(ngModel)]="school.home_no" name="home_no">
+    </mat-form-field>
+
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="Post Box" [(ngModel)]="school.post_box" name="post_box">
+    </mat-form-field>
+
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="Contact Person" [(ngModel)]="school.contact_person" name="contact_person">
+    </mat-form-field>
+
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="Contact No." [(ngModel)]="school.contact_no" name="contact_no">
+    </mat-form-field>
+    <mat-form-field class="one-fourth">
+      <input matInput placeholder="School Type" [(ngModel)]="school.school_type" name="school_type">
+    </mat-form-field>
+
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+
+    <button mat-raised-button (click)="close(school)" [disabled]="schoolForm.invalid" color="primary">Save</button>
+    <button mat-button (click)="close(null)">Cancel</button>
+  </mat-dialog-actions>
+</form>
+
+
+

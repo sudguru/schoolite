@@ -1,3 +1,4 @@
+import { ExtraFieldsComponent } from './../extra-fields/extra-fields.component';
 import { SkComponent } from './../sk/sk.component';
 import { MunicipalityComponent } from './../municipality/municipality.component';
 import { SyncPhotosComponent } from './../sync-photos/sync-photos.component';
@@ -72,7 +73,7 @@ export class HeaderComponent implements OnInit {
 
   cluster() {
     this.dialog.open(ClusterComponent, {
-      width: '1000px',
+      width: '1100px',
       disableClose: false,
       autoFocus: true
     });
@@ -80,7 +81,7 @@ export class HeaderComponent implements OnInit {
 
   municipality() {
     this.dialog.open(MunicipalityComponent, {
-      width: '1000px',
+      width: '1100px',
       disableClose: false,
       autoFocus: true
     });
@@ -88,7 +89,15 @@ export class HeaderComponent implements OnInit {
 
   sk() {
     this.dialog.open(SkComponent, {
-      width: '1000px',
+      width: '1100px',
+      disableClose: false,
+      autoFocus: true
+    });
+  }
+
+  extra_field() {
+    this.dialog.open(ExtraFieldsComponent, {
+      width: '1100px',
       disableClose: false,
       autoFocus: true
     });

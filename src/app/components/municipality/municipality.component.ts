@@ -14,6 +14,7 @@ export class MunicipalityComponent implements OnInit {
   deletedMunicipalities: Municipality[];
   municipalities: Municipality[];
   newMunicipality: Municipality;
+  token: any;
   constructor(
     public dialogRef: MatDialogRef<MunicipalityComponent>,
     private electronService: ElectronService,
@@ -67,6 +68,7 @@ export class MunicipalityComponent implements OnInit {
   ngOnInit() {
     this.electronService.ipcRenderer.send('getMunicipalityData', 'forApp');
     this.setNewMunicipality();
+    this.token = JSON.parse(localStorage.getItem('token'));
   }
 
 

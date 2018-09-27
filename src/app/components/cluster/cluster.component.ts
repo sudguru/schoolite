@@ -13,6 +13,7 @@ export class ClusterComponent implements OnInit {
   deletedClusters: Cluster[];
   clusters: Cluster[];
   newCluster: Cluster;
+  token: any;
   constructor(
     public dialogRef: MatDialogRef<ClusterComponent>,
     private electronService: ElectronService,
@@ -66,6 +67,7 @@ export class ClusterComponent implements OnInit {
   ngOnInit() {
     this.electronService.ipcRenderer.send('getClusterData', 'forApp');
     this.setNewCluster();
+    this.token = JSON.parse(localStorage.getItem('token'));
   }
 
 

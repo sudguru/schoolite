@@ -6,6 +6,7 @@ const ipcTasksSchool = require('./server/school');
 const ipcTasksCluster = require('./server/cluster');
 const ipcTasksMunitcipality = require('./server/municipality');
 const ipcTasksSK = require('./server/sk');
+const ipcTasksEF = require('./server/extra_fields');
 
 
 let win, serve;
@@ -58,6 +59,7 @@ try {
     ipcTasksCluster.sqlTasksClusters();
     ipcTasksMunitcipality.sqlTasksMunicipality();
     ipcTasksSK.sqlTasksSK();
+    ipcTasksEF.sqlTasksEF();
   });
 
   // Quit when all windows are closed.
